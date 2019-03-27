@@ -1,0 +1,50 @@
+A. UserDefaults :
+
+1. UserDefaults are stored in .plist file. That is why we have yo assign a key and value to it as plist includes only key-value pairs.
+2. You will always need a key to retrive the value.
+1st   var defaults = UserDefaults.standard //declared inside the class
+2nd   defaults.set(value,key :"ToDoList") // value is the value we want to save in the UserDefaults directory and key is used to retrive the information when we want.
+3rd   if let item = defaults.array(forKey: "ToDoList") as? [String] {
+      itemArray = item
+      } // This will be declared inside viewDidLoat as we want to retrive the save data inside the UserDefaults directory. In this app, the data is stored in the form of an array that is why we use this - [String]
+3.Use UserDefaults is not a database and should not be used as database. Use it only for storing small bits of data.
+
+
+
+B. The below 2 methods can do the same job.
+1st : itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+2nd :
+        if itemArray[indexPath.row].done == false {
+            itemArray[indexPath.row].done = true
+        } else {
+            itemArray[indexPath.row].done = false
+        }
+
+C. Ternary Operator ->
+// value = condition ? valueIfTrue : valueIfFalse // this linen of code does the same job as programmed below.
+
+cell.accessoryType = item.done == true ?  .checkmark : .none
+
+if item.done == true {
+cell.accessoryType = .checkmark
+} else {
+cell.accessoryType = .none
+}
+
+D. COREDATA :
+
+1. Entity in core data model is equivalent to Class  and Attributes in core data model are equivalent to Properties. Each entity is like a table of data.
+2. In Databases, Entity is called as Table and Attribute is called as Field
+3. lazy : It means that the code folowing "lazy" keyword will run only when needed and will terminate after the required work has been completed. This saves memory as it invokes only when required.
+4. newContext.delete(itemArray[indexPath.row])
+   itemArray.remove(at: indexPath.row)
+context.save()
+    The order of deleting the data is very important here. If we 1at remove from indexPath and then try to use coreData fpr deleting the data then the app will crash and there wont be the indexpath available to delete . hence 1st we deleted using coredata and then remove using indexpath. Also, after deleting the data we have to call the save context method sol that updated data will be stored in core data model.
+
+
+
+
+
+
+
+
